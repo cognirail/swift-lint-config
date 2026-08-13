@@ -1,0 +1,30 @@
+# Toolchain
+--swift-version 6.0
+--language-mode 6
+
+# Swift-native formatting first. These options follow common Swift/Apple style;
+# only max width and LF intentionally align with the TypeScript preset.
+--indent 4
+--tab-width 4
+--max-width 100
+--linebreaks lf
+--indent-case false
+--commas always
+--semicolons never
+--wrap-arguments after-first
+--wrap-parameters after-first
+--wrap-collections after-first
+--closing-paren balanced
+--call-site-paren balanced
+--wrap-return-type if-multiline
+--wrap-conditions after-first
+--trim-whitespace always
+
+# Generated/vendor output is outside the guardrail boundary.
+--exclude .build,.swiftpm,DerivedData,Packages,Pods,Carthage,Generated
+
+# Use SwiftFormat's tested default rule set. Homebrew tool upgrades require an
+# explicit formatting diff review before raising the supported version floor.
+# Avoid organization-wide declaration sorting: source order often communicates
+# API shape and is not merely formatting.
+--disable sortDeclarations

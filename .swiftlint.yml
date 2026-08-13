@@ -1,0 +1,157 @@
+strict: true
+
+excluded:
+  - .build
+  - .swiftpm
+  - DerivedData
+  - Packages
+  - Pods
+  - Carthage
+  - Generated
+
+# SwiftLint's default rules are the ecosystem baseline. Formatting-only rules
+# are disabled where SwiftFormat owns the decision; opt-ins below focus on
+# safety, clarity, and Swift-native idioms that the compiler does not enforce.
+disabled_rules:
+  - line_length
+  - opening_brace
+  - trailing_comma
+  - trailing_newline
+  - trailing_semicolon
+  - trailing_whitespace
+  - vertical_whitespace
+
+opt_in_rules:
+  - array_init
+  - closure_body_length
+  - closure_spacing
+  - collection_alignment
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - contains_over_range_nil_comparison
+  - convenience_type
+  - discarded_notification_center_observer
+  - discouraged_assert
+  - discouraged_optional_boolean
+  - duplicate_conditions
+  - duplicate_enum_cases
+  - empty_collection_literal
+  - empty_count
+  - empty_string
+  - empty_xctest_method
+  - enum_case_associated_values_count
+  - fallthrough
+  - fatal_error_message
+  - file_name
+  - file_name_no_space
+  - first_where
+  - force_unwrapping
+  - identical_operands
+  - implicitly_unwrapped_optional
+  - last_where
+  - legacy_multiple
+  - legacy_objc_type
+  - lower_acl_than_parent
+  - modifier_order
+  - multiline_arguments
+  - multiline_parameters
+  - no_empty_block
+  - no_fallthrough_only
+  - no_grouping_extension
+  - optional_enum_case_matching
+  - overridden_super_call
+  - override_in_extension
+  - pattern_matching_keywords
+  - prefer_self_type_over_type_of_self
+  - private_over_fileprivate
+  - private_subject
+  - reduce_boolean
+  - reduce_into
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - sorted_first_last
+  - toggle_bool
+  - unavailable_function
+  - unneeded_break_in_switch
+  - unneeded_override
+  - unowned_variable_capture
+  - weak_delegate
+  - xct_specific_matcher
+  - yoda_condition
+
+cyclomatic_complexity:
+  warning: 10
+  error: 15
+  ignores_case_statements: true
+
+closure_body_length:
+  warning: 30
+  error: 50
+
+function_body_length:
+  warning: 40
+  error: 60
+
+function_parameter_count:
+  warning: 5
+  error: 7
+
+type_body_length:
+  warning: 250
+  error: 350
+
+file_length:
+  warning: 400
+  error: 500
+  ignore_comment_only_lines: true
+
+large_tuple:
+  warning: 3
+  error: 4
+
+enum_case_associated_values_count:
+  warning: 4
+  error: 5
+
+identifier_name:
+  min_length:
+    warning: 3
+    error: 2
+  max_length:
+    warning: 40
+    error: 50
+  excluded:
+    - id
+    - db
+    - to
+    - at
+    - i
+    - j
+    - x
+    - y
+
+type_name:
+  min_length:
+    warning: 3
+    error: 2
+  max_length:
+    warning: 40
+    error: 50
+  validates_start_with_lowercase: error
+  allowed_symbols: []
+
+generic_type_name:
+  min_length:
+    warning: 1
+    error: 1
+  max_length:
+    warning: 20
+    error: 30
+  validates_start_with_lowercase: error
+
+nesting:
+  type_level: 2
+  function_level: 3
+
+reporter: xcode

@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select --switch /Applications/Xcode_16.4.app
+      - name: Install compatible lint tools
+        run: brew bundle
+      - name: Verify compatible tool versions
+        run: ./scripts/doctor.sh
+      - name: Lint and verify guardrails
+        run: make smoke
