@@ -11,9 +11,9 @@
 --indent-case false
 --commas always
 --semicolons never
---wrap-arguments after-first
---wrap-parameters after-first
---wrap-collections after-first
+--wrap-arguments before-first
+--wrap-parameters before-first
+--wrap-collections before-first
 --closing-paren balanced
 --call-site-paren balanced
 --wrap-return-type if-multiline

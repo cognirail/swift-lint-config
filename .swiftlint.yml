@@ -1,5 +1,17 @@
 strict: true
 
+custom_rules:
+  nested_ternary:
+    name: Nested Ternary
+    regex: '\?[^;{}]{0,240}\?'
+    message: Avoid nested ternary expressions; use a switch or a named helper.
+    severity: error
+    match_kinds:
+      - keyword
+      - identifier
+      - number
+      - string
+
 excluded:
   - .build
   - .swiftpm

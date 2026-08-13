@@ -22,7 +22,7 @@ make format
 make smoke
 ```
 
-`make lint` and `make format` are the lightweight daily path: they run the inline-directive guard and SwiftFormat, without requiring the full Xcode app. `make lint-strict` adds SwiftLint's naming, safety, complexity, and structure checks and requires complete Xcode/SourceKit. `make smoke` is the CI-grade strict path.
+`make lint` and `make format` are the lightweight daily path: they run the inline-directive guard and SwiftFormat, without requiring the full Xcode app. `make lint-strict` adds SwiftLint's naming, safety, complexity, structure, and nested-ternary checks and requires complete Xcode/SourceKit. `make smoke` is the CI-grade strict path.
 
 ## Add to a Swift or Xcode project
 
@@ -33,6 +33,7 @@ Copy these single-source-of-truth files into the consumer repository:
 .swiftformat
 scripts/check-inline-directives.sh
 scripts/lint.sh
+scripts/lint-strict.sh
 scripts/format.sh
 Brewfile
 ```
@@ -96,6 +97,7 @@ The configuration is stricter than a normal formatting preset where a rule can b
 - Type and generic names have bounded lengths, preventing generated names that encode an entire implementation detail.
 - Function, closure, type, and file size limits force generated code into reviewable, meaningfully named units.
 - Parameter count, nesting, and cyclomatic-complexity limits discourage orchestration-heavy generated functions.
+- Nested ternary expressions are errors; state mapping should use a `switch` or a named helper instead of formatter-produced multi-line condition chains.
 - Force unwrap, force cast, force try, implicitly unwrapped optionals, and inline lint suppression are hard failures.
 
 Semantic naming cannot be inferred safely from syntax alone. This preset therefore does not globally ban words such as `Manager`, `Helper`, `Data`, or `Info`: Apple APIs and legitimate domain models use some of them. Projects should add narrowly scoped custom rules only after defining their own architectural roles and allowed vocabulary.
