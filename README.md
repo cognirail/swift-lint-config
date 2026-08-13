@@ -10,18 +10,19 @@ Opinionated SwiftLint + SwiftFormat configuration for Swift 6 projects written s
 | Deterministic formatting | SwiftFormat | >= 0.62.1 |
 | Types, exhaustive switches, concurrency | Swift compiler | Swift 6 language mode |
 
-The repository does not vendor tool binaries. `Brewfile` installs current Homebrew formulae on macOS; `scripts/doctor.sh` rejects unsupported versions and incomplete Xcode/SourceKit environments.
+The repository does not vendor tool binaries. `Brewfile` installs current Homebrew formulae on macOS. The default format gate works with Swift Command Line Tools; the optional strict gate checks for a complete Xcode/SourceKit environment.
 
 ## Commands
 
 ```bash
 make install
 make lint
+make lint-strict
 make format
 make smoke
 ```
 
-`make lint` runs the hard inline-directive guard, SwiftLint strict mode, and SwiftFormat lint mode. `make format` applies SwiftFormat, then checks the guard again. SwiftLint does not own formatting and is intentionally not run in autocorrect mode.
+`make lint` and `make format` are the lightweight daily path: they run the inline-directive guard and SwiftFormat, without requiring the full Xcode app. `make lint-strict` adds SwiftLint's naming, safety, complexity, and structure checks and requires complete Xcode/SourceKit. `make smoke` is the CI-grade strict path.
 
 ## Add to a Swift or Xcode project
 
@@ -66,7 +67,7 @@ SwiftFormat remains an explicit command because automatic source rewriting durin
 2. Optionally add `https://github.com/SimplyDanny/SwiftLintPlugins` at exactly `0.65.0` under Package Dependencies.
 3. If added, attach `SwiftLintBuildToolPlugin` to each target's **Run Build Tool Plug-ins** phase.
 4. Put `.swiftlint.yml` and `.swiftformat` at the project root.
-5. Run the scripts from Terminal or CI; approve the optional SwiftLint package plugin when Xcode asks.
+5. Run `make lint` / `make format` locally; use `make lint-strict` in CI or on machines with complete Xcode.
 
 CI should not use `-skipPackagePluginValidation` unless the repository explicitly accepts the supply-chain tradeoff.
 
@@ -101,4 +102,4 @@ Semantic naming cannot be inferred safely from syntax alone. This preset therefo
 
 ## Upgrade policy
 
-Upgrade one tool at a time, update the minimum version in `scripts/doctor.sh`, run `make smoke`, then inspect the formatter diff. SwiftLint opt-ins stay explicit; SwiftFormat upgrades require an explicit formatting-diff review because its mature default rule set can evolve.
+Upgrade one tool at a time, update the minimum version in `scripts/doctor.sh`, run `make lint` locally and `make smoke` in CI, then inspect the formatter diff. SwiftLint opt-ins stay explicit; SwiftFormat upgrades require an explicit formatting-diff review because its mature default rule set can evolve.

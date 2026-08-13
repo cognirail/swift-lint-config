@@ -18,6 +18,6 @@ jobs:
       - name: Install compatible lint tools
         run: brew bundle
       - name: Verify compatible tool versions
-        run: ./scripts/doctor.sh
+        run: ./scripts/doctor.sh strict
       - name: Lint and verify guardrails
         run: make smoke

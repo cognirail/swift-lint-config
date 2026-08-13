@@ -8,8 +8,8 @@ trap 'rm -rf "$fixture_dir"' EXIT
 
 cd "$project_root"
 
-"$script_dir/doctor.sh"
-"$script_dir/lint.sh"
+"$script_dir/doctor.sh" strict
+"$script_dir/lint-strict.sh"
 
 mkdir -p "$fixture_dir/InlineDirective" "$fixture_dir/ForceUnwrap" "$fixture_dir/Naming"
 printf '%s\n' '// swiftlint:disable force_unwrapping' 'let value: String? = nil' > "$fixture_dir/InlineDirective/Invalid.swift"

@@ -26,8 +26,20 @@ require_tool() {
   printf '%-12s %s\n' "$command_name" "$actual_version"
 }
 
-require_tool swiftlint 0.65.0
 require_tool swiftformat 0.62.1
+
+mode="${1:-format}"
+if test "$mode" != "format" && test "$mode" != "strict"; then
+  echo "usage: $0 [format|strict]" >&2
+  exit 2
+fi
+
+if test "$mode" = "format"; then
+  printf '%-12s %s\n' "mode" "format (CLT-compatible)"
+  exit 0
+fi
+
+require_tool swiftlint 0.65.0
 
 developer_dir="$(xcode-select -p 2>/dev/null || true)"
 if test -z "$developer_dir" || test "$developer_dir" = "/Library/Developer/CommandLineTools"; then
